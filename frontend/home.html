@@ -1,0 +1,239 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Laptop Store</title>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <style>
+        /* CSS for the navigation bar */
+        .navbar {
+    overflow: hidden;
+    background-image: linear-gradient(to right, rgb(10, 3, 3) , rgb(84, 80, 80), rgb(5, 5, 5)); /* สร้างไล่สีจากสีดำไปสีเทา */
+    margin-bottom: 20px;
+    font-family: Arial, Helvetica, sans-serif;
+}
+
+
+
+        .navbar a {
+            float: right; /* ชิดขวา */
+            display: block;
+            color: #f2f2f2;
+            text-align: center;
+            padding: 14px 20px;
+            text-decoration: none;
+            margin-left: 10px; /* ให้เมนูที่แสดงห่างกันนิดหน่อย */
+        }
+
+        .navbar a.logo {
+            float: left; /* ชิดซ้าย */
+        }
+
+        /* เพิ่มส่วน CSS เมื่อ hover เมนู 1-6 */
+        .navbar a.menu:hover {
+            background-color: #575756;
+        }
+
+        .navbar a:hover {
+            background-color: inherit; /* ไม่มีการเปลี่ยนสีเมื่อ hover */
+        }
+
+        body {
+            font-family: TH Fah kwang, sans-serif;
+             /* กำหนดฟอนต์เป็น Arial */
+            background-color: #0d0c0c;
+            color: #f2f2f2;
+            margin-right: 20px;
+
+        }
+
+        .laptop-image {
+            text-align: center; /* กำหนดให้รูปภาพอยู่ตรงกลาง */
+            /* รูปภาพจะไม่เกินขนาดสูงสุดของหน้าจอ */
+        }
+
+        .grid-container {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 20px;
+    margin-left: 20px; /* เพิ่มระยะห่างด้านซ้าย */
+    margin-right: 20px; /* เพิ่มระยะห่างด้านขวา */
+    grid-gap: 10px;
+}
+
+.grid-container > * {
+    flex: 0 0 calc(33.33% - 20px); /* ปรับขนาดของแต่ละช่องให้เท่ากับ 1/3 ของพื้นที่ */
+    background-color: #f2f2f2;
+    padding: 10px;
+    text-align: center;
+    border: none;
+    margin-bottom: 20px;
+    box-shadow: 0px 0px 10px 0px rgba(0,0,0,0.5); /* เพิ่มเงา */
+}
+
+
+
+.grid-item {
+            width: calc(16.6666% - 10px); /* กำหนดขนาดของแต่ละช่องให้เท่ากับ 1/6 ของพื้นที่ */
+            background-color: #f2f2f2; /* กำหนดสีพื้นหลัง */
+            padding: 10px; /* กำหนดระยะห่างในช่อง */
+            text-align: center; /* จัดข้อความในช่องตรงกลาง */
+            border: none; /* ไม่มีเส้นขอบ */
+            margin-bottom: 10px; /* กำหนดระยะห่างด้านล่างของช่อง */
+            box-shadow: 0px 0px 10px 0px rgba(0,0,0,0.5); /* เพิ่มเงา */
+        }
+
+
+        .laptop-image img {
+            width: 1200px;
+            height: 400px; /* ปรับความสูงของรูปภาพตามที่ต้องการ */
+            border: 2px solid #969494; /* เพิ่มกรอบ */
+            box-shadow: 0px 0px 10px 0px rgba(0,0,0,0.7); /* เพิ่มเงา */
+            transition: transform 0.5s ease;
+        }
+
+        h2 {
+    margin-left: 20px; /* เพิ่มระยะห่างด้านซ้าย */
+    margin-right: 20px; /* เพิ่มระยะห่างด้านขวา */
+    font-size: 30px;
+}
+.grid-item img {
+    margin-top: 20px; /* เพิ่มระยะห่างด้านบนของรูปภาพในแต่ละช่อง 10px */
+}
+
+
+.grid-item h1 , h3 {
+    color: rgb(22, 20, 20); /* เปลี่ยนสีข้อความเป็นสีแดง */
+}
+
+.button {
+    display: inline-block;
+    padding: 10px 20px;
+    background-color: #081308; /* สีพื้นหลัง */
+    color: white; /* สีข้อความ */
+    text-align: center;
+    text-decoration: none;
+    font-size: 16px;
+    border: none;
+    border-radius: 5px;
+}
+.button:hover {
+    background-color: #5f615f; /* เปลี่ยนสีเมื่อชี้เมาส์ */
+}
+
+
+    </style>
+</head>
+<body>
+    <!-- Navigation Bar -->
+    <div class="navbar">
+        <!-- Text Logo -->
+        <a href="#" class="logo"><span style="font-size: 24px;">My Laptop Store</span></a>
+        <!-- Menu Items -->
+        <a href="member.html" class="menu">Member</a>
+        <a href="list.html" class="menu">Laptop</a>
+        <a href="add.html" class="menu">New Product</a>
+        <a href="home.html" class="menu">Home</a>
+
+    </div>
+
+    <div class="laptop-image">
+        <img src="2.jpg" class="img-fluid">
+    </div>
+    
+
+    <h2>Laptops
+    <a href="add.html" class="menu" style="float: right;">Create Product</a><style>
+        .menu {
+            color: rgb(238, 231, 27); /* เปลี่ยนสีข้อความลิงก์เป็นสีแดง */
+        }
+    </style>
+    </h2>
+
+
+    <div class="laptop-specs">
+        <div class="grid-container">
+            <div class="grid-item">
+                <img src="5.jpg" alt="รูปภาพ" style="width: 300px; height: 200px; box-shadow: 5px 5px 10px rgba(0, 0, 0, 0.3);">
+                <h1><span style="background-color: rgba(146, 146, 143, 0.3);">Acer</span></h1>
+                <h3>- Notebook 16' 1920x1080 Intel Core i7</h3>
+                <h3>- Notebook 16' 1366x768	 AMD A8-Series</h3>
+                <h3>- Notebook 16' 1366x768	 Intel Celeron Dual</h3>
+                <h3><a href="list.html" class="button">More products</a></h3>
+
+            </div>
+            
+            <div class="grid-item">
+                <img src="6.jpg" alt="รูปภาพ" style="width: 300px; height: 200px; box-shadow: 5px 5px 10px rgba(0, 0, 0, 0.3);">
+                <h1><span style="background-color: rgba(146, 146, 143, 0.3);">Dell</span></h1>
+                <h3>- Ultrabook	13'	Quad HD+ / Touchscreen 3200x1800</h3>
+                <h3>- Workstation 16' Full HD 1920x1080 Intel Core i7</h3>
+                <h3>- Notebook	16'	1366x768 Intel Pentium Quad Core </h3>
+                <h3><a href="list.html" class="button">More products</a></h3>
+            </div>
+            <div class="grid-item">
+                <img src="7.jpg" alt="รูปภาพ" style="width: 400px; height: 200px; box-shadow: 5px 5px 10px rgba(0, 0, 0, 0.3);">
+                <h1><span style="background-color: rgba(146, 146, 143, 0.3);">Lenovo</span></h1>
+                <h3>- Notebook	14'	IPS Panel Full HD 1920x1080	Intel Core i5</h3>
+                <h3>- Ultrabook	14'	IPS Panel Full HD 1920x1080	Intel Core i7 </h3>
+                <h3>- Gaming	16'	IPS Panel Full HD 1920x1080	Intel Core i5</h3>
+                <h3><a href="list.html" class="button">More products</a></h3>
+            </div>
+            <style>
+                .grid-container .grid-item {
+                    border-radius: 20px; /* กำหนดความโค้งของขอบเป็น 15px */
+                    overflow: hidden; /* ป้องกันเนื้อหาภายในจากการเกินขอบ */
+                }
+                
+    .grid-container .grid-item img {
+        border-radius: 15px; /* กำหนดความโค้งของขอบเป็น 15px */
+        overflow: hidden; /* ป้องกันเนื้อหาภายในจากการเกินขอบ */
+    }
+
+            </style>
+            
+        </div>
+        <div class="grid-container">
+            <div class="grid-item">
+                <img src="8.png" alt="รูปภาพ" style="width: 300px; height: 200px; box-shadow: 5px 5px 10px rgba(0, 0, 0, 0.3);">
+                <h1><span style="background-color: rgba(146, 146, 143, 0.3);">Asus</span></h1>
+                <h3>- Notebook	16'	Full HD 1920x1080	Intel Core i5</h3>
+                <h3>- Ultrabook	13'	IPS Panel Full HD 	Intel Core i5</h3>
+                <h3>- Gaming	16'	Full HD 1920x1080	Intel Core i7</h3>
+                <h3><a href="list.html" class="button">More products</a></h3>
+            </div>
+            <div class="grid-item">
+                <img src="9.jpg" alt="รูปภาพ" style="width: 400px; height: 200px; box-shadow: 5px 5px 10px rgba(0, 0, 0, 0.3);">
+                <h1><span style="background-color: rgba(146, 146, 143, 0.3);">HP</span></h1>
+                <h3>- 2 in 1 Convertible  13' Full HD / Touchscreen 1920x1080</h3>
+                <h3>- Notebook	16'	Full HD 1920x1080	Intel Core i5 6200U</h3>
+                <h3>- Netbook	12'	Full HD 1920x1080	Intel Core i7 7500U</h3>
+                <h3><a href="list.html" class="button">More products</a></h3>
+            </div>
+            <div class="grid-item">
+                <img src="10.png" alt="รูปภาพ" style="width: 300px; height: 200px; box-shadow: 5px 5px 10px rgba(0, 0, 0, 0.3);">
+                <h1><span style="background-color: rgba(146, 146, 143, 0.3);">MSI</span></h1>
+                <h3>- Gaming 17'  Full HD 1920x1080	Intel Core i7 7700HQ</h3>
+                <h3>- Gaming  17' Full HD 1920x1080	Intel Core i7 6700HQ</h3>
+                <h3>- Gaming  16' Full HD 1920x1080	Intel Core i7 6700HQ</h3>
+                <h3><a href="list.html" class="button">More products</a></h3>
+            </div>
+        </div>
+    </div>
+    
+    <script>
+        $(document).ready(function(){
+            var images = ['2.jpg', '3.jpg', '4.jpg']; // รายชื่อของรูปภาพที่คุณต้องการแสดง
+            var currentIndex = 0;
+            var laptopImage = $('.laptop-image img');
+
+            function slideImage() {
+                currentIndex = (currentIndex + 1) % images.length;
+                laptopImage.attr('src', images[currentIndex]);
+            }
+
+            setInterval(slideImage, 3000); // ตั้งเวลาสไลด์ให้เป็น 3 วินาที
+        });
+    </script>
+    
+</body>
+</html>

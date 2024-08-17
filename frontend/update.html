@@ -1,0 +1,201 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Update Laptop Data</title>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <style>
+        /* CSS for the navigation bar */
+        .navbar {
+    overflow: hidden;
+    background-image: linear-gradient(to right, rgb(10, 3, 3) , rgb(84, 80, 80), rgb(5, 5, 5)); /* สร้างไล่สีจากสีดำไปสีเทา */
+    margin-bottom: 20px;
+    font-family: Arial, Helvetica, sans-serif;
+}
+
+        .navbar a {
+            float: right;
+            display: block;
+            color: #f2f2f2;
+            text-align: center;
+            padding: 14px 20px;
+            text-decoration: none;
+            margin-left: 10px;
+        }
+
+        .navbar a.logo {
+            float: left;
+        }
+
+        .navbar a.menu:hover {
+            background-color: #5b5b59;
+        }
+
+        .navbar a:hover {
+            background-color: inherit;
+        }
+        body {
+            font-family: TH Fah kwang, sans-serif;
+            background-color: #0d0c0c;
+            color: #f2f2f2;
+        }
+
+        /* CSS for the form container */
+        .form-container {
+            width: 50%;
+            margin: auto;
+            padding: 20px;
+            border: 1px solid #ccc;
+            border-radius: 10px;
+            box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
+        }
+
+        /* Form input fields */
+        .form-container input[type="text"],
+        .form-container input[type="number"] {
+            width: 100%;
+            padding: 12px 20px;
+            margin: 8px 0;
+            display: inline-block;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+            box-sizing: border-box;
+        }
+
+        /* Form submit button */
+        .form-container button {
+            width: 100%;
+            background-color: #4CAF50;
+            color: white;
+            padding: 14px 20px;
+            margin: 8px 0;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+        }
+
+        /* Form submit button on hover */
+        .form-container button:hover {
+            background-color: #45a049;
+        }
+    </style>
+</head>
+<body>
+    <!-- Navigation Bar -->
+    <div class="navbar">
+        <!-- Text Logo -->
+        <a href="#" class="logo"><span style="font-size: 24px;">My Laptop Store</span></a>
+        <!-- Menu Items -->
+        <a href="member.html" class="menu">Member</a>
+        <a href="list.html" class="menu">Laptop</a>
+        <a href="add.html" class="menu">New Product</a>
+        <a href="home.html" class="menu">Home</a>
+    </div>
+
+    <!-- Main Content -->
+    <div class="form-container">
+        <h1>Edit Product</h1>
+        <form id="laptopForm">
+            <div>
+                <label for="Column_1">Column_1:</label>
+                <input type="number" id="Column_1" name="Column_1" required>
+            </div>
+            <div>
+                <label for="Company">Company:</label>
+                <input type="text" id="Company" name="Company" required>
+            </div>
+            <div>
+                <label for="TypeName">TypeName:</label>
+                <input type="text" id="TypeName" name="TypeName" required>
+            </div>
+            <div>
+                <label for="Inches">Inches:</label>
+                <input type="number" id="Inches" name="Inches" required>
+            </div>
+            <div>
+                <label for="ScreenResolution">ScreenResolution:</label>
+                <input type="text" id="ScreenResolution" name="ScreenResolution" required>
+            </div>
+            <div>
+                <label for="Cpu">Cpu:</label>
+                <input type="text" id="Cpu" name="Cpu" required>
+            </div>
+            <div>
+                <label for="Ram">Ram:</label>
+                <input type="text" id="Ram" name="Ram" required>
+            </div>
+            <div>
+                <label for="Memory">Memory:</label>
+                <input type="text" id="Memory" name="Memory" required>
+            </div>
+            <div>
+                <label for="Gpu">Gpu:</label>
+                <input type="text" id="Gpu" name="Gpu" required>
+            </div>
+            <div>
+                <label for="OpSys">OpSys:</label>
+                <input type="text" id="OpSys" name="OpSys" required>
+            </div>
+            <div>
+                <label for="Weight">Weight:</label>
+                <input type="text" id="Weight" name="Weight" required>
+            </div>
+            <div>
+                <label for="Price">Price:</label>
+                <input type="number" id="Price" name="Price" required>
+            </div>
+            <button type="submit">Save Changes</button>
+        </form>
+    </div>
+    
+    <!-- jQuery -->
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    
+    <!-- JavaScript -->
+    <script>
+        $(document).ready(function () {
+            // Get query parameters from URL
+            var params = new URLSearchParams(window.location.search);
+
+            // Submit form data for update
+            $('#laptopForm').submit(function (e) {
+                e.preventDefault();
+
+                var formData = {};
+                // Collect form data
+                $(this).serializeArray().forEach(function (item) {
+                    formData[item.name] = item.value;
+                });
+
+                // Log form data to console for debugging
+                console.log('Form Data:', formData);
+
+                // Check if 'id' exists and is not null
+                var idValue = $('#Column_1').val();
+                console.log(idValue)
+                if (idValue !== null) {
+                    // Use the valid 'id' value to construct the URL for the PUT API
+                    $.ajax({
+                        url: 'https://localhost:7031/api/laptops/' + idValue,
+                        type: 'PUT',
+                        contentType: 'application/json',
+                        data: JSON.stringify(formData),
+                        success: function (response) {
+                            alert('Laptop data updated successfully!');
+                            // Redirect to the list page or perform any other action
+                            window.location.href = 'list.html';
+                        },
+                        error: function (xhr, status, error) {
+                            alert('Error occurred while updating laptop data.');
+                            console.error(xhr.responseText); // Log detailed error message to console
+                        }
+                    });
+                } else {
+                    console.error('id parameter is missing or null');
+                    // Perform additional actions as needed if the 'id' value is invalid
+                }
+            });
+        });
+    </script>
+    
+</body>
+</html>

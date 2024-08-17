@@ -1,0 +1,206 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Laptop Store</title>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <style>
+        /* CSS for the navigation bar */
+        .navbar {
+    overflow: hidden;
+    background-image: linear-gradient(to right, rgb(10, 3, 3) , rgb(84, 80, 80), rgb(5, 5, 5)); /* สร้างไล่สีจากสีดำไปสีเทา */
+    margin-bottom: 20px;
+    font-family: Arial, Helvetica, sans-serif;
+}
+
+
+        .navbar a {
+            float: right;
+            display: block;
+            color: #f2f2f2;
+            text-align: center;
+            padding: 14px 20px;
+            text-decoration: none;
+            margin-left: 10px;
+        }
+
+        .navbar a.logo {
+            float: left;
+        }
+
+        .navbar a.menu:hover {
+            background-color: #5b5b59;
+        }
+
+        .navbar a:hover {
+            background-color: inherit;
+        }
+
+        body {
+            font-family: TH Fah kwang, sans-serif;
+            background-color: #050505;
+            color: #f2f2f2;
+        }
+
+        /* Form container */
+        .form-container {
+            width: 50%;
+            margin: auto;
+            padding: 20px;
+            border: 1px solid #ccc;
+            border-radius: 10px;
+            box-shadow: 0 4px 8px 0 rgba(238, 233, 233, 0.2);
+        }
+
+        /* Form input fields */
+        .form-container input[type="text"],
+        .form-container input[type="number"] {
+            width: 100%;
+            padding: 12px 20px;
+            margin: 8px 0;
+            display: inline-block;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+            box-sizing: border-box;
+        }
+
+        /* Form submit button */
+        .form-container button {
+            width: 100%;
+            background-color: #4CAF50;
+            color: white;
+            padding: 14px 20px;
+            margin: 8px 0;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+        }
+
+        /* Form submit button on hover */
+        .form-container button:hover {
+            background-color: #45a049;
+        }
+    </style>
+</head>
+<body>
+    <!-- Navigation Bar -->
+    <div class="navbar">
+        <!-- Text Logo -->
+        <a href="#" class="logo"><span style="font-size: 24px;">My Laptop Store</span></a>
+        <!-- Menu Items -->
+        <a href="member.html" class="menu">Member</a>
+        <a href="list.html" class="menu">Laptop</a>
+        <a href="add.html" class="menu">New Product</a>
+        <a href="home.html" class="menu">Home</a>
+    </div>
+
+    <div class="form-container">
+        <h1>Create New Product</h1>
+        <form id="laptopForm">
+            <div>
+                <label for="Column_1">Column_1:</label>
+                <input type="number" id="Column_1" name="Column_1" required>
+            </div>
+            <div>
+                <label for="Company">Company:</label>
+                <input type="text" id="Company" name="Company" required>
+            </div>
+            <div>
+                <label for="TypeName">TypeName:</label>
+                <input type="text" id="TypeName" name="TypeName" required>
+            </div>
+            <div>
+                <label for="Inches">Inches:</label>
+                <input type="number" id="Inches" name="Inches" required>
+            </div>
+            <div>
+                <label for="ScreenResolution">ScreenResolution:</label>
+                <input type="text" id="ScreenResolution" name="ScreenResolution" required>
+            </div>
+            <div>
+                <label for="Cpu">Cpu:</label>
+                <input type="text" id="Cpu" name="Cpu" required>
+            </div>
+            <div>
+                <label for="Ram">Ram:</label>
+                <input type="text" id="Ram" name="Ram" required>
+            </div>
+            <div>
+                <label for="Memory">Memory:</label>
+                <input type="text" id="Memory" name="Memory" required>
+            </div>
+            <div>
+                <label for="Gpu">Gpu:</label>
+                <input type="text" id="Gpu" name="Gpu" required>
+            </div>
+            <div>
+                <label for="OpSys">OpSys:</label>
+                <input type="text" id="OpSys" name="OpSys" required>
+            </div>
+            <div>
+                <label for="Weight">Weight:</label>
+                <input type="text" id="Weight" name="Weight" required>
+            </div>
+            <div>
+                <label for="Price">Price:</label>
+                <input type="number" id="Price" name="Price" required>
+            </div>
+            <button type="submit">Add Product</button>
+        </form>
+    </div>
+
+    <script>
+        $(document).ready(function () {
+            $('#laptopForm').submit(function (e) {
+                e.preventDefault();
+
+                var Column_1 = $('#Column_1').val();
+                var Company = $('#Company').val();
+                var TypeName = $('#TypeName').val();
+                var Inches = $('#Inches').val();
+                var ScreenResolution = $('#ScreenResolution').val();
+                var Cpu = $('#Cpu').val();
+                var Ram = $('#Ram').val();
+                var Memory = $('#Memory').val();
+                var Gpu = $('#Gpu').val();
+                var OpSys = $('#OpSys').val();
+                var Weight = $('#Weight').val();
+                var Price = $('#Price').val();
+
+                var laptopData = {
+                    Column_1: Column_1,
+                    Company: Company,
+                    TypeName: TypeName,
+                    Inches: Inches,
+                    ScreenResolution: ScreenResolution,
+                    Cpu: Cpu,
+                    Ram: Ram,
+                    Memory: Memory,
+                    Gpu: Gpu,
+                    OpSys: OpSys,
+                    Weight: Weight,
+                    Price: Price,
+                };
+
+                $.ajax({
+    url: 'https://localhost:7031/api/laptops',
+    type: 'POST',
+    contentType: 'application/json',
+    data: JSON.stringify(laptopData),
+    success: function (response) {
+        alert('Product added successfully!');
+        // Clear the form fields
+        $('#laptopForm')[0].reset();
+
+        // Redirect to the list page
+        window.location.href = 'list.html';
+    },
+    error: function () {
+        alert('Error occurred while adding the product.');
+    }
+});
+
+            });
+        });
+    </script>
+</body>
+</html>

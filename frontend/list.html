@@ -1,0 +1,212 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Laptop Store</title>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <style>
+        /* CSS for the navigation bar */
+        .navbar {
+    overflow: hidden;
+    background-image: linear-gradient(to right, rgb(10, 3, 3) , rgb(84, 80, 80), rgb(5, 5, 5)); /* สร้างไล่สีจากสีดำไปสีเทา */
+    margin-bottom: 20px;
+    font-family: Arial, Helvetica, sans-serif;
+}
+
+        .navbar a {
+            float: right;
+            display: block;
+            color: #f2f2f2;
+            text-align: center;
+            padding: 14px 20px;
+            text-decoration: none;
+            margin-left: 10px;
+        }
+
+        .navbar a.logo {
+            float: left;
+        }
+
+        .navbar a.menu:hover {
+            background-color: #5b5b59;
+        }
+
+        .navbar a:hover {
+            background-color: inherit;
+        }
+
+        body {
+            font-family: TH Fah kwang, sans-serif;
+            background-color: #0d0c0c;
+            color: #f2f2f2;
+        }
+
+        /* CSS for the table */
+        #laptopTable {
+            border-collapse: collapse;
+            width: 100%;
+        }
+
+        #laptopTable th, #laptopTable td {
+            border: 1px solid #ddd;
+            padding: 8px;
+            text-align: left;
+        }
+
+        #laptopTable th {
+            background-color: #545754;
+            color: white;
+        }
+
+        /* CSS for action buttons */
+        .action-button {
+            margin-right: 5px;
+            cursor: pointer;
+        }
+
+        .action-button:hover {
+            background-color: #ff6347; /* change color on hover */
+            color: white;
+        }
+    </style>
+</head>
+<body>
+    <!-- Navigation Bar -->
+    <div class="navbar">
+        <!-- Text Logo -->
+        <a href="#" class="logo"><span style="font-size: 24px;">My Laptop Store</span></a>
+        <!-- Menu Items -->
+        <a href="member.html" class="menu">Member</a>
+        <a href="list.html" class="menu">Laptop</a>
+        <a href="add.html" class="menu">New Product</a>
+        <a href="home.html" class="menu">Home</a>
+    </div>
+
+    <h2>Laptop Details</h2>
+    <table id="laptopTable">
+        <thead>
+            <tr>
+                <th>Column_1</th>
+                <th>Company</th>
+                <th>TypeName</th>
+                <th>Inches</th>
+                <th>ScreenResolution</th>
+                <th>Cpu</th>
+                <th>Ram</th>
+                <th>Memory</th>
+                <th>Gpu</th>
+                <th>OpSys</th>
+                <th>Weight</th>
+                <th>Price</th>
+                <th>Action</th> <!-- เพิ่มคอลัมน์ Action -->
+            </tr>
+        </thead>
+        <tbody>
+            <!-- laptop data will be dynamically inserted here -->
+        </tbody>
+    </table>
+
+    <script>
+        $(document).ready(function () {
+            // Fetch data from the API
+            $.ajax({
+                url: 'https://localhost:7031/api/laptops', // Replace this with your API endpoint
+                type: 'GET',
+                dataType: 'json',
+                success: function (data) {
+                    // Populate the table with data
+                    populateTable(data);
+                },
+                error: function () {
+                    alert('Error occurred while fetching laptop data.');
+                }
+            });
+
+            // Function to populate the table with data
+            function populateTable(data) {
+                var tableBody = $('#laptopTable tbody');
+                tableBody.empty(); // Clear existing data
+
+                $.each(data, function (index, laptop) {
+                    var row = $('<tr>');
+                    row.append($('<td>').text(laptop.column_1));
+                    row.append($('<td>').text(laptop.company));
+                    row.append($('<td>').text(laptop.typeName));
+                    row.append($('<td>').text(laptop.inches));
+                    row.append($('<td>').text(laptop.screenResolution));
+                    row.append($('<td>').text(laptop.cpu));
+                    row.append($('<td>').text(laptop.ram));
+                    row.append($('<td>').text(laptop.memory));
+                    row.append($('<td>').text(laptop.gpu));
+                    row.append($('<td>').text(laptop.opSys));
+                    row.append($('<td>').text(laptop.weight));
+                    row.append($('<td>').text(laptop.price)); // "price" ไม่ใช่ "Price"
+
+                    // Add Edit button to the row
+                    var editButton = $('<button>').text('Edit').addClass('action-button');
+
+editButton.click(function () {
+    var rowData = [
+        laptop.column_1,
+        laptop.company,
+        laptop.typeName,
+        laptop.inches,
+        laptop.screenResolution,
+        laptop.cpu,
+        laptop.ram,
+        laptop.memory,
+        laptop.gpu,
+        laptop.opSys,
+        laptop.weight,
+        laptop.price
+    ];
+
+    // Create a query string with all row data
+    var queryString = rowData.map(function (value, index) {
+        return 'col' + (index + 1) + '=' + encodeURIComponent(value);
+    }).join('&');
+
+    // Navigate to update page with query string
+    window.location.href = 'update.html?' + queryString;
+});
+
+editButton.hover(
+    function() {
+        $(this).css('background-color', 'green'); // เปลี่ยนสีเมื่อชี้เมาส์
+    },
+    function() {
+        $(this).css('background-color', ''); // เปลี่ยนกลับเป็นสีปกติเมื่อไม่ชี้เมาส์
+}
+);
+
+// เพิ่มปุ่มลงใน DOM
+$('body').append(editButton);
+
+
+                    // Add Delete button to the row
+                    var deleteButton = $('<button>').text('Delete').addClass('action-button').click(function () {
+                        var confirmDelete = confirm('Are you sure you want to delete this laptop?');
+                        if (confirmDelete) {
+                            $.ajax({
+                                url: 'https://localhost:7031/api/laptops/' + laptop.column_1,
+                                type: 'DELETE',
+                                success: function () {
+                                    row.remove();
+                                    alert('Laptop deleted successfully.');
+                                },
+                                error: function () {
+                                    alert('Error occurred while deleting laptop.');
+                                }
+                            });
+                        }
+                    });
+
+                    // Append buttons to the row
+                    row.append($('<td>').append(editButton).append(deleteButton));
+
+                    tableBody.append(row);
+                });
+            }
+        });
+    </script>
+</body>
+</html>
